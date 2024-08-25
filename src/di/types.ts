@@ -19,5 +19,5 @@ export const Types = {
   // controllers
   AuthController: Symbol.for('AuthController'),
   UserController: Symbol.for('UserController'),
-  ManagerController: Symbol.for('ManagerController'),
-}
+  ManagerController: Symbol.for('ManagerController')
+};

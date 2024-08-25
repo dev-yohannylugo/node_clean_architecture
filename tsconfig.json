@@ -100,7 +100,6 @@
     // "noPropertyAccessFromIndexSignature": true,       /* Enforces using indexed accessors for keys declared using an indexed type. */
     // "allowUnusedLabels": true,                        /* Disable error reporting for unused labels. */
     // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
-    "suppressImplicitAnyIndexErrors": true,
 
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
@@ -111,6 +110,9 @@
     "emitDecoratorMetadata": true,
 
     /* extended types */
-    "typeRoots": ["src/core/@types", "./node_modules/@types"]
-  }
+    "typeRoots": ["src/core/@types", "./node_modules/@types"],
+
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"],
 }

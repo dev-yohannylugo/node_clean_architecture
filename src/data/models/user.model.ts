@@ -1,22 +1,18 @@
-import mongoose, { Schema, model } from 'mongoose'
-import {
-  CreateParams,
-  Query,
-  UserEntity,
-} from '../../domain/entities/user.entity'
+import mongoose, { Schema, model } from 'mongoose';
+import { CreateParams, Query, UserEntity } from '../../domain/entities/user.entity';
 
 export interface IUser {
-  _id: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  phoneNumber: string
-  verified: boolean
-  otpCode: string
-  otpExpire: Date
-  createdAt: Date
-  updatedAt: Date
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  verified: boolean;
+  otpCode: string;
+  otpExpire: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const schema = new Schema<IUser>(
@@ -28,17 +24,17 @@ const schema = new Schema<IUser>(
     phoneNumber: { type: String, required: true },
     verified: { type: Boolean, default: false },
     otpCode: String,
-    otpExpire: Date,
+    otpExpire: Date
   },
   { timestamps: true }
-)
+);
 
 // create indexes
-schema.index({ phoneNumber: 1 }, { unique: true })
+schema.index({ phoneNumber: 1 }, { unique: true });
 
-const User = model<IUser>('User', schema)
+const User = model<IUser>('User', schema);
 
-export default User
+export default User;
 
 export const Mapper = {
   toDtoCreation: (payload: CreateParams) => {
@@ -49,8 +45,8 @@ export const Mapper = {
       otpCode: payload.otpCode,
       otpExpire: payload.otpExpire,
       password: payload.password,
-      phoneNumber: payload.phoneNumber,
-    }
+      phoneNumber: payload.phoneNumber
+    };
   },
 
   toQuery: (query: Query) => {
@@ -64,8 +60,8 @@ export const Mapper = {
       ...(query.phoneNumber && { phoneNumber: query.phoneNumber }),
       ...(query.verified !== undefined && { verified: query.verified }),
       ...(query.id && { _id: new mongoose.Types.ObjectId(query.id) }),
-      ...(query.createdAt && { createdAt: query.createdAt }),
-    }
+      ...(query.createdAt && { createdAt: query.createdAt })
+    };
   },
 
   toEntity: (model: IUser): UserEntity =>
@@ -81,5 +77,5 @@ export const Mapper = {
       model.otpExpire,
       model.password,
       model._id.toString()
-    ),
-}
+    )
+};

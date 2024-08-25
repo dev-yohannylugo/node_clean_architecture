@@ -8,9 +8,9 @@ Node.js REST API clean architecture sample project documentation.
 
 ## Tech Stack
 
-- Node js (16^).
+- Node js (18^).
 - Express.js (4^)
-- mongodb (5^)
+- mongodb (8^)
 
 ## Main Features
 

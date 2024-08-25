@@ -1,25 +1,21 @@
-import { NextFunction, Request, Response } from 'express'
-import ResponseMessages from '../../core/utils/constants'
+import { NextFunction, Request, Response } from 'express';
+import ResponseMessages from '../../core/utils/constants';
 
-import config from '../../config'
+import config from '../../config';
 
-const verifyAuthorization = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const verifyAuthorization = async (req: Request, res: Response, next: NextFunction) => {
   // check for 'Authorization-Key' header
-  const authorizationKey = req.header('Authorization-Key')
+  const authorizationKey = req.header('Authorization-Key');
 
   // check if authorizationKey provided
   if (!authorizationKey || authorizationKey !== config.AUTHORIZATION_KEY) {
     return res.status(401).json({
       success: false,
-      message: ResponseMessages.RES_MSG_UNAUTHORIZED_CLIENT_EN,
-    })
+      message: ResponseMessages.RES_MSG_UNAUTHORIZED_CLIENT_EN
+    });
   }
 
-  next()
-}
+  next();
+};
 
-export default verifyAuthorization
+export default verifyAuthorization;

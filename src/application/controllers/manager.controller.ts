@@ -1,11 +1,11 @@
-import { Request, Response } from 'express'
-import { Types } from '../../di/types'
-import { getErrorMessage } from '../../core/utils/errorHandler'
-import ResponseMessages from '../../core/utils/constants'
-import logger from '../../core/utils/logger'
-import utils from '../../core/utils/util'
-import IManagerRepo from '../../domain/repositories/managerRepo'
-import { inject, injectable } from 'inversify'
+import { Request, Response } from 'express';
+import { Types } from '../../di/types';
+import { getErrorMessage } from '../../core/utils/errorHandler';
+import ResponseMessages from '../../core/utils/constants';
+import logger from '../../core/utils/logger';
+import utils from '../../core/utils/util';
+import IManagerRepo from '../../domain/repositories/managerRepo';
+import { inject, injectable } from 'inversify';
 
 @injectable()
 export default class ManagerController {
@@ -23,50 +23,50 @@ export default class ManagerController {
      * manager in request body
      */
 
-    const { username, password } = req.body
+    const { username, password } = req.body;
     try {
       // check if manager exists
 
-      const exists = await this.repository.isExists(username)
+      const exists = await this.repository.isExists(username);
 
       if (exists) {
         return res.status(409).json({
           success: false,
-          message: ResponseMessages.RES_MSG_MANAGER_ALREADY_EXISTS_EN,
-        })
+          message: ResponseMessages.RES_MSG_MANAGER_ALREADY_EXISTS_EN
+        });
       }
 
-      const hash = await utils.generateHash(password)
-      const payload = { ...req.body, password: hash }
+      const hash = await utils.generateHash(password);
+      const payload = { ...req.body, password: hash };
 
-      const manager = await this.repository.create(payload)
+      const manager = await this.repository.create(payload);
 
       if (!manager) {
         return res.status(500).json({
           success: false,
-          message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN,
-        })
+          message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN
+        });
       }
 
       // execlude manager password
-      const managerResponse = { ...manager, password: undefined }
+      const managerResponse = { ...manager, password: undefined };
 
       res.status(201).json({
         success: true,
         message: ResponseMessages.RES_MSG_MANAGER_CREATED_SUCCESSFULLY_EN,
-        manager: managerResponse,
-      })
+        manager: managerResponse
+      });
     } catch (err) {
-      const errorMessage = getErrorMessage(err)
-      console.error(errorMessage)
-      logger.appendErrorLog(req.originalUrl, errorMessage)
+      const errorMessage = getErrorMessage(err);
+      console.error(errorMessage);
+      logger.appendErrorLog(req.originalUrl, errorMessage);
 
       return res.status(500).json({
         success: false,
-        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN,
-      })
+        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN
+      });
     }
-  }
+  };
 
   findAllManagers = async (req: Request, res: Response) => {
     /*
@@ -77,24 +77,24 @@ export default class ManagerController {
      */
 
     try {
-      const managers = await this.repository.findAll({})
+      const managers = await this.repository.findAll({});
 
       res.status(200).json({
         success: true,
         totalResults: managers.length,
-        results: managers,
-      })
+        results: managers
+      });
     } catch (err) {
-      const errorMessage = getErrorMessage(err)
-      console.error(errorMessage)
-      logger.appendErrorLog(req.originalUrl, errorMessage)
+      const errorMessage = getErrorMessage(err);
+      console.error(errorMessage);
+      logger.appendErrorLog(req.originalUrl, errorMessage);
 
       return res.status(500).json({
         success: false,
-        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN,
-      })
+        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN
+      });
     }
-  }
+  };
 
   getManager = async (req: Request, res: Response) => {
     /*
@@ -105,32 +105,32 @@ export default class ManagerController {
      */
 
     try {
-      const id = req.params.id
+      const id = req.params.id;
 
-      const manager = await this.repository.findById(id)
+      const manager = await this.repository.findById(id);
 
       if (!manager) {
         return res.status(404).json({
           success: false,
-          message: ResponseMessages.RES_MSG_MANAGER_NOT_FOUND_EN,
-        })
+          message: ResponseMessages.RES_MSG_MANAGER_NOT_FOUND_EN
+        });
       }
 
       res.status(200).json({
         success: true,
-        manager,
-      })
+        manager
+      });
     } catch (err) {
-      const errorMessage = getErrorMessage(err)
-      console.error(errorMessage)
-      logger.appendErrorLog(req.originalUrl, errorMessage)
+      const errorMessage = getErrorMessage(err);
+      console.error(errorMessage);
+      logger.appendErrorLog(req.originalUrl, errorMessage);
 
       return res.status(500).json({
         success: false,
-        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN,
-      })
+        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN
+      });
     }
-  }
+  };
 
   deleteManagerById = async (req: Request, res: Response) => {
     /*
@@ -141,31 +141,31 @@ export default class ManagerController {
      */
 
     try {
-      const id = req.params.id
+      const id = req.params.id;
 
-      const deleted = await this.repository.deleteOne({ id })
+      const deleted = await this.repository.deleteOne({ id });
       if (!deleted) {
         return res.status(404).json({
           success: false,
-          message: ResponseMessages.RES_MSG_MANAGER_NOT_FOUND_EN,
-        })
+          message: ResponseMessages.RES_MSG_MANAGER_NOT_FOUND_EN
+        });
       }
 
       res.status(200).json({
         success: true,
-        message: ResponseMessages.RES_MSG_MANAGER_DELETED_SUCCESSFULLY_EN,
-      })
+        message: ResponseMessages.RES_MSG_MANAGER_DELETED_SUCCESSFULLY_EN
+      });
     } catch (err) {
-      const errorMessage = getErrorMessage(err)
-      console.error(errorMessage)
-      logger.appendErrorLog(req.originalUrl, errorMessage)
+      const errorMessage = getErrorMessage(err);
+      console.error(errorMessage);
+      logger.appendErrorLog(req.originalUrl, errorMessage);
 
       return res.status(500).json({
         success: false,
-        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN,
-      })
+        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN
+      });
     }
-  }
+  };
 
   updateManager = async (req: Request, res: Response) => {
     /*
@@ -178,43 +178,46 @@ export default class ManagerController {
      */
 
     try {
-      const updates = req.body
-      const id = req.params.id
+      const updates = req.body;
+      const id = req.params.id;
 
       // check if updated username exists
       if (updates.username) {
-        const exists = await this.repository.isExists(updates.username, id)
+        const exists = await this.repository.isExists(updates.username, id);
 
         if (exists) {
           return res.status(409).json({
             success: false,
-            message: ResponseMessages.RES_MSG_MANAGER_ALREADY_EXISTS_EN,
-          })
+            message: ResponseMessages.RES_MSG_MANAGER_ALREADY_EXISTS_EN
+          });
         }
       }
 
-      const updatedManager = await this.repository.updateOne({ ...updates, id })
+      const updatedManager = await this.repository.updateOne({
+        ...updates,
+        id
+      });
 
       if (!updatedManager) {
         return res.status(404).json({
           success: false,
-          message: ResponseMessages.RES_MSG_MANAGER_NOT_FOUND_EN,
-        })
+          message: ResponseMessages.RES_MSG_MANAGER_NOT_FOUND_EN
+        });
       }
 
       res.status(201).json({
         success: true,
-        manager: updatedManager,
-      })
+        manager: updatedManager
+      });
     } catch (err) {
-      const errorMessage = getErrorMessage(err)
-      console.error(errorMessage)
-      logger.appendErrorLog(req.originalUrl, errorMessage)
+      const errorMessage = getErrorMessage(err);
+      console.error(errorMessage);
+      logger.appendErrorLog(req.originalUrl, errorMessage);
 
       return res.status(500).json({
         success: false,
-        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN,
-      })
+        message: ResponseMessages.RES_MSG_AN_ERROR_OCCURRED_EN
+      });
     }
-  }
+  };
 }

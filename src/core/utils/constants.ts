@@ -11,8 +11,7 @@ export default {
   //////////////////////////////
 
   // general messages
-  RES_MSG_AN_ERROR_OCCURRED_EN:
-    'Sorry, something went wrong, we are working to solve the issue as soon as possible.',
+  RES_MSG_AN_ERROR_OCCURRED_EN: 'Sorry, something went wrong, we are working to solve the issue as soon as possible.',
 
   RES_MSG_INVALID_TOKEN_EN: 'Your session is expired, please login.',
 
@@ -54,8 +53,7 @@ export default {
 
   RES_MSG_USER_NOT_FOUND_EN: 'User not found.',
 
-  RES_MSG_USER_NOT_VERIFIED_EN:
-    'User not verified, please verify your account.',
+  RES_MSG_USER_NOT_VERIFIED_EN: 'User not verified, please verify your account.',
 
   RES_MSG_USER_TOKEN_NOT_FOUND_EN: 'User token not found.',
 
@@ -63,11 +61,9 @@ export default {
 
   RES_MSG_USER_UPDATED_SUCCESSFULLY_EN: 'User updated successfully.',
 
-  RES_MSG_USER_FORGET_PASSWORD_CODE_SENT_SUCCESSFULLY_EN:
-    'Forget password code sent successfully.',
+  RES_MSG_USER_FORGET_PASSWORD_CODE_SENT_SUCCESSFULLY_EN: 'Forget password code sent successfully.',
 
   RES_MSG_USER_CODE_SENT_SUCCESSFULLY_EN: 'Otp code sent successfully.',
 
-  RES_MSG_USER_OTP_WRONG_EN:
-    'Verification code wrong or expired, please request another one.',
-}
+  RES_MSG_USER_OTP_WRONG_EN: 'Verification code wrong or expired, please request another one.'
+};
