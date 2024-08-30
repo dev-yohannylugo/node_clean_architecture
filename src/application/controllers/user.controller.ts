@@ -44,8 +44,10 @@ export default class UserController {
           results: []
         });
       }
-
-      if (page > totalPages) {
+  //FIX DiornanR
+ //if (page > totalPages)
+   if (typeof page === 'number' && page > totalPages)
+     {
         return res.status(400).json({
           success: false,
           message: ResponseMessages.RES_MSG_PAGE_OUT_OF_BOUNDS_EN
